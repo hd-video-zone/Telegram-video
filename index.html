@@ -20,7 +20,7 @@
             box-sizing: border-box;
         }
 
-        /* બેનર Ads માટે કન્ટેનર */
+        /* Top & Bottom Banner Ad Container */
         .ad-slot-top, .ad-slot-bottom {
             width: 100%;
             max-width: 320px;
@@ -51,7 +51,7 @@
             color: #f8fafc;
         }
 
-        /* ૧. Clickbait Play Video બોક્સ */
+        /* 1. Play Video Clickbait Box */
         .play-clickbait-box {
             margin: 18px 0;
             padding: 16px;
@@ -91,7 +91,7 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* ૨. ટાઈમર બોક્સ (આના પર પણ ક્લિક કરવાથી લિંક ખુલશે) */
+        /* 2. Timer Box */
         .timer-box {
             margin: 18px 0;
             padding: 12px;
@@ -110,19 +110,29 @@
             font-weight: bold;
         }
 
-        /* ફાઇનલ બોટ બટન */
+        /* Final Telegram Button */
         .btn {
             display: none;
             background: linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
-            padding: 16px 28px;
+            padding: 16px 24px;
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
             cursor: pointer;
             margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-second-step {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important;
         }
     </style>
 </head>
@@ -144,7 +154,7 @@
             ⏳ Please wait <span class="seconds" id="count">15</span> seconds for Telegram link...
         </div>
 
-        <a id="get-video-btn" class="btn" href="#">📥 Get Video On Telegram</a>
+        <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
     <div class="ad-slot-bottom">
@@ -153,7 +163,7 @@
 
     <script>
         const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
-        const BOT_USERNAME = "Nexxa18Bot";
+        const BOT_USERNAME = "Nexxa18Bot"; // @ vagar nu sachu username
 
         const urlParams = new URLSearchParams(window.location.search);
         const videoParam = urlParams.get('go');
@@ -163,22 +173,40 @@
             : `https://t.me/${BOT_USERNAME}`;
 
         let timeLeft = 15;
+        let finalButtonClickedOnce = false;
+
         const countSpan = document.getElementById("count");
         const timerBox = document.getElementById("timer-trigger");
         const videoBtn = document.getElementById("get-video-btn");
 
-        videoBtn.href = botRedirectUrl;
-
-        // સ્માર્ટલિંક ખોલવાનું ફંક્શન
+        // Direct Smartlink open karva mate function
         function openDirectSmartlink() {
             window.open(SMARTLINK, "_blank");
         }
 
-        // ફક્ત આ ૨ જગ્યાએ ક્લિક કરવાથી જ સ્માર્ટલિંક ખુલશે:
+        // Jagya 1: Play Video box par click kare tyare
         document.getElementById("play-trigger").addEventListener("click", openDirectSmartlink);
+
+        // Jagya 2: Timer chalu hoy tyare aena par click kare tyare
         document.getElementById("timer-trigger").addEventListener("click", openDirectSmartlink);
 
-        // ૧૫ સેકન્ડનું ટાઈમર
+        // Final Button nu Smart Logic
+        videoBtn.addEventListener("click", function() {
+            if (!finalButtonClickedOnce) {
+                // Pehli vaar click: Direct Smartlink khulse
+                openDirectSmartlink();
+                finalButtonClickedOnce = true;
+                
+                // Button no color ane lkhan badlai jashe jethi user pachho aavine click kare
+                videoBtn.classList.add("btn-second-step");
+                videoBtn.innerHTML = "🚀 Click Here Again to Open Bot";
+            } else {
+                // Biji vaar click: Sidho Telegram Bot khulse!
+                window.location.href = botRedirectUrl;
+            }
+        });
+
+        // 15 Second nu Countdown
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
