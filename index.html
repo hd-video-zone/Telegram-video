@@ -20,16 +20,17 @@
             box-sizing: border-box;
         }
 
+        /* 300x250 બેનર Ad કન્ટેનર */
         .ad-slot-top, .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
-            margin: 10px 0;
+            margin: 12px 0;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .card {
@@ -133,46 +134,29 @@
 </head>
 <body>
 
-    <div class="ad-slot-top" id="top-ad">
-        <script>
-          atOptions = {
-            'key' : '3c5d38e6483721d34d6711714b85f53c',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js" async></script>
-    </div>
+    <!-- ઉપરનું 300x250 બેનર -->
+    <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
         <h2>🎬 Video File Ready</h2>
 
+        <!-- [જગ્યા ૧]: Play Video Box (Direct Smartlink) -->
         <div class="play-clickbait-box" id="play-trigger">
             <div class="play-title">▶️ Play Video in Full HD</div>
             <div class="play-sub">(Fast Streaming Server Online)</div>
         </div>
 
+        <!-- [જગ્યા ૨]: Timer Box (Direct Smartlink) -->
         <div class="timer-box" id="timer-trigger">
             ⏳ Please wait <span class="seconds" id="count">20</span> seconds for Telegram link...
         </div>
 
+        <!-- ફાઇનલ બટન (૧લી વાર Smartlink, ૨જી વાર Bot) -->
         <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
-    <div class="ad-slot-bottom" id="bottom-ad">
-        <script>
-          atOptions = {
-            'key' : '3c5d38e6483721d34d6711714b85f53c',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js" async></script>
-    </div>
+    <!-- નીચેનું 300x250 બેનર -->
+    <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
         const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
@@ -185,7 +169,7 @@
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
-        let timeLeft = 20; // ૨૦ સેકન્ડ સેટ કરેલ છે
+        let timeLeft = 20;
         let isSmartlinkTriggered = false;
 
         const countSpan = document.getElementById("count");
@@ -201,7 +185,6 @@
 
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
-
             if (!isSmartlinkTriggered) {
                 openSmartlink();
                 isSmartlinkTriggered = true;
@@ -212,6 +195,7 @@
             }
         });
 
+        // 20 સેકન્ડ કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
@@ -223,17 +207,55 @@
             }
         }, 1000);
 
-        // Fast Load (Lazy loading scripts)
-        window.addEventListener('load', () => {
+        // 🚀 FAST AD INJECTION SYSTEM (3-4 સેકન્ડમાં બધી Ads લોડ થશે)
+        function injectBanner(slotId) {
+            const container = document.getElementById(slotId);
+            if (!container) return;
+            const iframe = document.createElement('iframe');
+            iframe.width = "300";
+            iframe.height = "250";
+            iframe.frameBorder = "0";
+            iframe.scrolling = "no";
+            container.appendChild(iframe);
+
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(`
+                <body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '3c5d38e6483721d34d6711714b85f53c',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                <\/script>
+                <script type="text/javascript" src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js"><\/script>
+                </body>
+            `);
+            doc.close();
+        }
+
+        // પેજ ખોલતાં જ તરત બધી Ads ક્રમશઃ લોડ થશે
+        window.addEventListener('DOMContentLoaded', () => {
+            // ૧. બંને 300x250 બેનર્સ તરત લોડ થશે
+            injectBanner("slot-top");
+            setTimeout(() => { injectBanner("slot-bottom"); }, 500);
+
+            // ૨. Popunder (1.5 સેકન્ડે)
             setTimeout(() => {
                 const popScript = document.createElement('script');
                 popScript.src = "https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js";
                 document.body.appendChild(popScript);
+            }, 1500);
 
-                const socialScript = document.createElement('script');
-                socialScript.src = "https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js";
-                document.body.appendChild(socialScript);
-            }, 600);
+            // ૩. Social Bar (2.5 સેકન્ડે)
+            setTimeout(() => {
+                const socScript = document.createElement('script');
+                socScript.src = "https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js";
+                document.body.appendChild(socScript);
+            }, 2500);
         });
     </script>
 
