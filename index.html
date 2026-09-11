@@ -3,117 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Video - Video Zone</title>
+    <title>Watch Video - HD Zone</title>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0f172a;
+            background-color: #0b0f19;
             color: #ffffff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
-        .card {
-            background-color: #1e293b;
-            border-radius: 16px;
-            padding: 30px 20px;
-            text-align: center;
-            max-width: 480px;
+
+        /* બેનર Ads માટે કન્ટેનર */
+        .ad-slot-top, .ad-slot-bottom {
             width: 100%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            max-width: 320px;
+            min-height: 50px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            overflow: hidden;
         }
+
+        .card {
+            background-color: #161f30;
+            border-radius: 18px;
+            padding: 25px 20px;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
         h2 {
-            margin-top: 0;
+            margin: 0 0 15px 0;
             font-size: 22px;
             color: #f8fafc;
         }
+
+        /* ૧. Clickbait Play Video બોક્સ */
+        .play-clickbait-box {
+            margin: 18px 0;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.35));
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            animation: pulse-glow 1.8s infinite;
+        }
+
+        .play-clickbait-box:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.5));
+        }
+
+        .play-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .play-sub {
+            font-size: 12px;
+            color: #fca5a5;
+            margin-top: 4px;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* ૨. ટાઈમર બોક્સ (આના પર પણ ક્લિક કરવાથી લિંક ખુલશે) */
         .timer-box {
-            margin: 25px 0;
-            font-size: 18px;
+            margin: 18px 0;
+            padding: 12px;
+            font-size: 16px;
             font-weight: 600;
             color: #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+            border-radius: 8px;
+            border: 1px dashed rgba(56, 189, 248, 0.4);
+            cursor: pointer;
         }
+
         .seconds {
-            font-size: 26px;
+            font-size: 24px;
             color: #f43f5e;
+            font-weight: bold;
         }
+
+        /* ફાઇનલ બોટ બટન */
         .btn {
             display: none;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
-            padding: 16px 32px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        .btn:hover {
-            transform: scale(1.03);
-        }
-        .ad-space {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #334155;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #38bdf8;
-            cursor: pointer;
-            border: 1px dashed #64748b;
-            transition: background 0.2s;
-        }
-        .ad-space:hover {
-            background-color: #475569;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
+    <div class="ad-slot-top">
+        <span style="font-size: 11px; color: #64748b;">SPONSORED BANNER</span>
+    </div>
+
     <div class="card">
-        <h2>🎬 Your Video Is Ready</h2>
+        <h2>🎬 Video File Ready</h2>
 
-        <!-- Adsterra Smartlink Ad Box -->
-        <div class="ad-space" onclick="openAdLink()">
-            <span>⚡ Click here to unlock high speed server (Sponsor Ad)</span>
+        <div class="play-clickbait-box" id="play-trigger">
+            <div class="play-title">▶️ Play Video in Full HD</div>
+            <div class="play-sub">(Fast Streaming Server Online)</div>
         </div>
 
-        <div class="timer-box" id="timer-box">
-            Please wait <span class="seconds" id="count">15</span> seconds...
+        <div class="timer-box" id="timer-trigger">
+            ⏳ Please wait <span class="seconds" id="count">15</span> seconds for Telegram link...
         </div>
 
-        <a id="get-video-btn" class="btn" href="#">▶️ Click Here To Get Video</a>
+        <a id="get-video-btn" class="btn" href="#">📥 Get Video On Telegram</a>
+    </div>
+
+    <div class="ad-slot-bottom">
+        <span style="font-size: 11px; color: #64748b;">SPONSORED BANNER</span>
     </div>
 
     <script>
         const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
         const BOT_USERNAME = "Nexxa18Bot";
 
-        // URL માંથી '?go=get_xxx' પેરામીટર રીડ કરવું
         const urlParams = new URLSearchParams(window.location.search);
         const videoParam = urlParams.get('go');
 
-        // બોટની લિંક સેટ કરવી
         const botRedirectUrl = videoParam 
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
         let timeLeft = 15;
         const countSpan = document.getElementById("count");
-        const timerBox = document.getElementById("timer-box");
+        const timerBox = document.getElementById("timer-trigger");
         const videoBtn = document.getElementById("get-video-btn");
 
         videoBtn.href = botRedirectUrl;
 
-        function openAdLink() {
+        // સ્માર્ટલિંક ખોલવાનું ફંક્શન
+        function openDirectSmartlink() {
             window.open(SMARTLINK, "_blank");
         }
 
+        // ફક્ત આ ૨ જગ્યાએ ક્લિક કરવાથી જ સ્માર્ટલિંક ખુલશે:
+        document.getElementById("play-trigger").addEventListener("click", openDirectSmartlink);
+        document.getElementById("timer-trigger").addEventListener("click", openDirectSmartlink);
+
+        // ૧૫ સેકન્ડનું ટાઈમર
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
