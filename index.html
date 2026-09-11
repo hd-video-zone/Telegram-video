@@ -38,7 +38,6 @@
       color: #94a3b8;
       margin-bottom: 15px;
     }
-    /* Fake Video Player લુક */
     .fake-player {
       position: relative;
       background: #000;
@@ -64,21 +63,15 @@
       font-size: 24px;
       box-shadow: 0 0 15px rgba(0, 136, 204, 0.6);
     }
-    .ad-banner {
-      min-height: 50px;
-      margin: 12px 0;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 6px;
-    }
-    .timer-text {
+    .timer-badge {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid #f43f5e;
+      color: #f43f5e;
+      padding: 10px;
+      border-radius: 8px;
       font-size: 15px;
       margin: 15px 0;
-      color: #f1f5f9;
-    }
-    .timer-num {
-      color: #f43f5e;
       font-weight: bold;
-      font-size: 18px;
     }
     .btn {
       display: none;
@@ -91,12 +84,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
+      margin-top: 10px;
     }
     .direct-link {
       display: inline-block;
@@ -113,45 +101,38 @@
   <div class="heading">Aapka Video Ready Ho Raha Hai...</div>
   <div class="subtext">Please wait for the secure download link</div>
 
-  <!-- Fake Video Player: ક્લિક કરવાથી Adsterra Direct Link ખુલશે -->
+  <!-- Fake Video Player (User Play દબાવશે એટલે Smartlink ખુલશે) -->
   <div class="fake-player" onclick="openDirectAd()">
     <div class="play-btn">▶</div>
     <span style="font-size: 12px; margin-top: 8px; color: #cbd5e1;">Click here to Play / Unmute</span>
   </div>
 
-  <!-- Adsterra Banner Ad #1 -->
-  <div class="ad-banner">
-    <!-- Adsterra Banner Script 1 મુકો -->
+  <!-- Timer Text -->
+  <div class="timer-badge" id="timer-box">
+    ⏳ Link unlock hone me <span id="sec">15</span> seconds baki hai...
   </div>
 
-  <p class="timer-text" id="timer-box">
-    Link unlock hone me <span class="timer-num" id="sec">15</span> seconds baki hai...
-  </p>
-
+  <!-- Unlock Button -->
   <button class="btn" id="go-btn" onclick="openTelegram()">
     🚀 Watch Full Video on Telegram
   </button>
 
-  <!-- Adsterra Direct Link -->
-  <a class="direct-link" href="https://YOUR_ADSTERRA_DIRECT_LINK" target="_blank">
+  <br>
+  <!-- Smartlink Button -->
+  <a class="direct-link" href="https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21" target="_blank">
     Server 2: Fast High-Speed Stream
   </a>
-
-  <!-- Adsterra Banner Ad #2 -->
-  <div class="ad-banner">
-    <!-- Adsterra Banner Script 2 મુકો -->
-  </div>
 </div>
 
 <script>
-  let seconds = 15; // 15 સેકન્ડ ટાઈમર
+  let seconds = 15;
   const timerBox = document.getElementById("timer-box");
   const secElement = document.getElementById("sec");
   const goBtn = document.getElementById("go-btn");
 
   const countdown = setInterval(() => {
     seconds--;
-    secElement.innerText = seconds;
+    if (secElement) secElement.innerText = seconds;
 
     if (seconds <= 0) {
       clearInterval(countdown);
@@ -161,13 +142,13 @@
   }, 1000);
 
   function openDirectAd() {
-    // Fake player પર ક્લિક કરે ત્યારે Direct Link ખુલશે
-    window.open("https://YOUR_ADSTERRA_DIRECT_LINK", "_blank");
+    // Smartlink open થશે
+    window.open("https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21", "_blank");
   }
 
   function openTelegram() {
-    // અહીં તમારી Telegram Channel/Video લિંક મુકો
-    window.location.href = "https://t.me/YOUR_CHANNEL_OR_POST_LINK";
+    // તમારી Telegram લિંક અહીં મુકો
+    window.location.href = "https://t.me/YOUR_TELEGRAM_LINK_HERE";
   }
 </script>
 
