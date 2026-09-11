@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
+    <!-- ૧. POPUNDER AD SCRIPT -->
+    <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
+
+    <!-- ૨. SOCIAL BAR AD SCRIPT -->
+    <script src="https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js"></script>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -20,16 +26,14 @@
             box-sizing: border-box;
         }
 
-        /* Top & Bottom Banner Ad Container */
+        /* 300x250 બેનર Ad માટે કન્ટેનર */
         .ad-slot-top, .ad-slot-bottom {
-            width: 100%;
-            max-width: 320px;
-            min-height: 50px;
-            margin: 12px 0;
+            width: 300px;
+            min-height: 250px;
+            margin: 15px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -51,7 +55,7 @@
             color: #f8fafc;
         }
 
-        /* 1. Play Video Clickbait Box */
+        /* ૧. Play Video Clickbait Box */
         .play-clickbait-box {
             margin: 18px 0;
             padding: 16px;
@@ -91,7 +95,7 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* 2. Timer Box */
+        /* ૨. ટાઈમર બોક્સ */
         .timer-box {
             margin: 18px 0;
             padding: 12px;
@@ -110,7 +114,7 @@
             font-weight: bold;
         }
 
-        /* Final Telegram Button */
+        /* બોટ બટન */
         .btn {
             display: none;
             background: linear-gradient(135deg, #10b981, #059669);
@@ -138,32 +142,55 @@
 </head>
 <body>
 
+    <!-- ૩. TOP 300x250 BANNER AD -->
     <div class="ad-slot-top">
-        <span style="font-size: 11px; color: #64748b;">SPONSORED BANNER</span>
+        <script>
+          atOptions = {
+            'key' : '3c5d38e6483721d34d6711714b85f53c',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js"></script>
     </div>
 
     <div class="card">
         <h2>🎬 Video File Ready</h2>
 
+        <!-- [જગ્યા ૧]: Play Video Box (Direct Smartlink) -->
         <div class="play-clickbait-box" id="play-trigger">
             <div class="play-title">▶️ Play Video in Full HD</div>
             <div class="play-sub">(Fast Streaming Server Online)</div>
         </div>
 
+        <!-- [જગ્યા ૨]: Timer Box (Direct Smartlink) -->
         <div class="timer-box" id="timer-trigger">
             ⏳ Please wait <span class="seconds" id="count">15</span> seconds for Telegram link...
         </div>
 
+        <!-- ફાઇનલ બટન (૧લી વાર Direct Link, ૨જી વાર Telegram Bot) -->
         <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
+    <!-- ૪. BOTTOM 300x250 BANNER AD -->
     <div class="ad-slot-bottom">
-        <span style="font-size: 11px; color: #64748b;">SPONSORED BANNER</span>
+        <script>
+          atOptions = {
+            'key' : '3c5d38e6483721d34d6711714b85f53c',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js"></script>
     </div>
 
     <script>
         const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
-        const BOT_USERNAME = "Nexxa18Bot"; // @ vagar nu sachu username
+        const BOT_USERNAME = "Nexxa18Bot";
 
         const urlParams = new URLSearchParams(window.location.search);
         const videoParam = urlParams.get('go');
@@ -179,34 +206,28 @@
         const timerBox = document.getElementById("timer-trigger");
         const videoBtn = document.getElementById("get-video-btn");
 
-        // Direct Smartlink open karva mate function
         function openDirectSmartlink() {
             window.open(SMARTLINK, "_blank");
         }
 
-        // Jagya 1: Play Video box par click kare tyare
+        // ક્લિક ટ્રિગર્સ
         document.getElementById("play-trigger").addEventListener("click", openDirectSmartlink);
-
-        // Jagya 2: Timer chalu hoy tyare aena par click kare tyare
         document.getElementById("timer-trigger").addEventListener("click", openDirectSmartlink);
 
-        // Final Button nu Smart Logic
+        // બટન 2-Step Logic
         videoBtn.addEventListener("click", function() {
             if (!finalButtonClickedOnce) {
-                // Pehli vaar click: Direct Smartlink khulse
                 openDirectSmartlink();
                 finalButtonClickedOnce = true;
                 
-                // Button no color ane lkhan badlai jashe jethi user pachho aavine click kare
                 videoBtn.classList.add("btn-second-step");
                 videoBtn.innerHTML = "🚀 Click Here Again to Open Bot";
             } else {
-                // Biji vaar click: Sidho Telegram Bot khulse!
                 window.location.href = botRedirectUrl;
             }
         });
 
-        // 15 Second nu Countdown
+        // ૧૫ સેકન્ડ કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
