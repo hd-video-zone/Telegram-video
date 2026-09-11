@@ -92,13 +92,13 @@
 
     <script>
         const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
-        const BOT_USERNAME = "Nexxa18Bot";
+        const BOT_USERNAME = "@Nexxa18Bot";
 
         // URL માંથી '?go=get_xxx' પેરામીટર રીડ કરવું
         const urlParams = new URLSearchParams(window.location.search);
         const videoParam = urlParams.get('go');
 
-        // બોટની યોગ્ય લિંક સેટ કરવી
+        // બોટની લિંક સેટ કરવી
         const botRedirectUrl = videoParam 
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
@@ -110,12 +110,10 @@
 
         videoBtn.href = botRedirectUrl;
 
-        // Smartlink ઓપન કરવાનું ફંક્શન
         function openAdLink() {
             window.open(SMARTLINK, "_blank");
         }
 
-        // ૧૫ સેકન્ડનું કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
