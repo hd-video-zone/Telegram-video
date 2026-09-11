@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
-    <!-- ૧. POPUNDER AD SCRIPT -->
     <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
 
-    <!-- ૨. SOCIAL BAR AD SCRIPT -->
     <script src="https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js"></script>
 
     <style>
@@ -26,7 +24,7 @@
             box-sizing: border-box;
         }
 
-        /* 300x250 બેનર Ad માટે કન્ટેનર */
+        /* 300x250 બેનર કન્ટેનર */
         .ad-slot-top, .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
@@ -135,14 +133,13 @@
         }
 
         .btn-second-step {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5) !important;
         }
     </style>
 </head>
 <body>
 
-    <!-- ૩. TOP 300x250 BANNER AD -->
     <div class="ad-slot-top">
         <script>
           atOptions = {
@@ -159,22 +156,18 @@
     <div class="card">
         <h2>🎬 Video File Ready</h2>
 
-        <!-- [જગ્યા ૧]: Play Video Box (Direct Smartlink) -->
         <div class="play-clickbait-box" id="play-trigger">
             <div class="play-title">▶️ Play Video in Full HD</div>
             <div class="play-sub">(Fast Streaming Server Online)</div>
         </div>
 
-        <!-- [જગ્યા ૨]: Timer Box (Direct Smartlink) -->
         <div class="timer-box" id="timer-trigger">
             ⏳ Please wait <span class="seconds" id="count">15</span> seconds for Telegram link...
         </div>
 
-        <!-- ફાઇનલ બટન (૧લી વાર Direct Link, ૨જી વાર Telegram Bot) -->
         <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
-    <!-- ૪. BOTTOM 300x250 BANNER AD -->
     <div class="ad-slot-bottom">
         <script>
           atOptions = {
@@ -200,29 +193,36 @@
             : `https://t.me/${BOT_USERNAME}`;
 
         let timeLeft = 15;
-        let finalButtonClickedOnce = false;
+        let isSmartlinkTriggered = false;
 
         const countSpan = document.getElementById("count");
         const timerBox = document.getElementById("timer-trigger");
         const videoBtn = document.getElementById("get-video-btn");
 
-        function openDirectSmartlink() {
+        function openSmartlink() {
             window.open(SMARTLINK, "_blank");
         }
 
-        // ક્લિક ટ્રિગર્સ
-        document.getElementById("play-trigger").addEventListener("click", openDirectSmartlink);
-        document.getElementById("timer-trigger").addEventListener("click", openDirectSmartlink);
+        // ૧. લાલ બોક્સ પર ક્લિક
+        document.getElementById("play-trigger").addEventListener("click", openSmartlink);
 
-        // બટન 2-Step Logic
-        videoBtn.addEventListener("click", function() {
-            if (!finalButtonClickedOnce) {
-                openDirectSmartlink();
-                finalButtonClickedOnce = true;
-                
+        // ૨. ટાઈમર બોક્સ પર ક્લિક
+        document.getElementById("timer-trigger").addEventListener("click", openSmartlink);
+
+        // ૩. ફાઇનલ બટન: ૧લી વાર સ્માર્ટલિંક, ૨જી વાર સીધું ટેલિગ્રામ બોટ
+        videoBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            if (!isSmartlinkTriggered) {
+                // પહેલી ક્લિક: ફક્ત ૧ વાર સ્માર્ટલિંક ખોલશે
+                openSmartlink();
+                isSmartlinkTriggered = true;
+
+                // બટન વાદળી થઈ જશે અને લખાણ બદલાઈ જશે
                 videoBtn.classList.add("btn-second-step");
-                videoBtn.innerHTML = "🚀 Click Here Again to Open Bot";
+                videoBtn.innerHTML = "🚀 Click Here to Open Bot";
             } else {
+                // બીજી ક્લિક: સીધું બોટમાં લઈ જશે (કોઈ વધારાની Ad નહીં)
                 window.location.href = botRedirectUrl;
             }
         });
