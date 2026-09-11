@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Video</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .ad-box {
+      margin: 15px 0;
+      min-height: 60px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .timer-text {
+      font-size: 18px;
+      margin: 20px 0;
+      color: #38bdf8;
+    }
+    .btn {
+      display: none;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: #0088cc;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #0077b5;
+    }
+    .direct-link {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #f59e0b;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h3>તમારો વિડીયો તૈયાર થઈ રહ્યો છે...</h3>
+
+  <!-- Adsterra Banner Ad કોડ અહીં મુકવો -->
+  <div class="ad-box">
+    <!-- Paste your banner ad script here -->
+  </div>
+
+  <p class="timer-text" id="timer-box">
+    કૃપા કરીને <b id="sec">10</b> સેકન્ડ રાહ જુઓ...
+  </p>
+
+  <button class="btn" id="go-btn" onclick="openTelegram()">
+    Open Video in Telegram
+  </button>
+
+  <br>
+  <!-- Adsterra Direct Link -->
+  <a class="direct-link" href="https://YOUR_ADSTERRA_DIRECT_LINK" target="_blank">
+    Watch Server 2 (Fast Link)
+  </a>
+</div>
+
+<script>
+  let seconds = 10; // તમે ઇચ્છો તેટલી સેકન્ડ રાખો
+  const timerBox = document.getElementById("timer-box");
+  const secElement = document.getElementById("sec");
+  const goBtn = document.getElementById("go-btn");
+
+  const countdown = setInterval(() => {
+    seconds--;
+    secElement.innerText = seconds;
+
+    if (seconds <= 0) {
+      clearInterval(countdown);
+      timerBox.style.display = "none";
+      goBtn.style.display = "block";
+    }
+  }, 1000);
+
+  function openTelegram() {
+    // અહી તમારી Telegram ચેનલ અથવા ચોક્કસ પોસ્ટની લિંક મુકો
+    window.location.href = "https://t.me/YOUR_CHANNEL_OR_POST_LINK";
+  }
+</script>
+
+</body>
+</html>
