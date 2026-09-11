@@ -1,44 +1,84 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Video</title>
+  <title>HD Video Player</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0b0f19;
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
       padding: 15px;
-      box-sizing: border-box;
     }
     .card {
-      background: #1e293b;
-      padding: 25px;
-      border-radius: 12px;
+      background: #151c2c;
+      border: 1px solid #28344e;
+      padding: 20px;
+      border-radius: 14px;
       text-align: center;
       max-width: 420px;
       width: 100%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
     }
-    .ad-box {
-      margin: 15px 0;
-      min-height: 60px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
+    .heading {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #38bdf8;
+    }
+    .subtext {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 15px;
+    }
+    /* Fake Video Player લુક */
+    .fake-player {
+      position: relative;
+      background: #000;
+      height: 190px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+      border: 1px dashed #334155;
+      margin-bottom: 15px;
+    }
+    .play-btn {
+      width: 55px;
+      height: 55px;
+      background: rgba(0, 136, 204, 0.9);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 15px rgba(0, 136, 204, 0.6);
+    }
+    .ad-banner {
+      min-height: 50px;
+      margin: 12px 0;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
     }
     .timer-text {
+      font-size: 15px;
+      margin: 15px 0;
+      color: #f1f5f9;
+    }
+    .timer-num {
+      color: #f43f5e;
+      font-weight: bold;
       font-size: 18px;
-      margin: 20px 0;
-      color: #38bdf8;
     }
     .btn {
       display: none;
@@ -51,16 +91,18 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      text-decoration: none;
+      animation: pulse 1.5s infinite;
     }
-    .btn:hover {
-      background: #0077b5;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
     }
     .direct-link {
       display: inline-block;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #f59e0b;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #fbbf24;
       text-decoration: underline;
     }
   </style>
@@ -68,30 +110,41 @@
 <body>
 
 <div class="card">
-  <h3>તમારો વિડીયો તૈયાર થઈ રહ્યો છે...</h3>
+  <div class="heading">Aapka Video Ready Ho Raha Hai...</div>
+  <div class="subtext">Please wait for the secure download link</div>
 
-  <!-- Adsterra Banner Ad કોડ અહીં મુકવો -->
-  <div class="ad-box">
-    <!-- Paste your banner ad script here -->
+  <!-- Fake Video Player: ક્લિક કરવાથી Adsterra Direct Link ખુલશે -->
+  <div class="fake-player" onclick="openDirectAd()">
+    <div class="play-btn">▶</div>
+    <span style="font-size: 12px; margin-top: 8px; color: #cbd5e1;">Click here to Play / Unmute</span>
+  </div>
+
+  <!-- Adsterra Banner Ad #1 -->
+  <div class="ad-banner">
+    <!-- Adsterra Banner Script 1 મુકો -->
   </div>
 
   <p class="timer-text" id="timer-box">
-    કૃપા કરીને <b id="sec">10</b> સેકન્ડ રાહ જુઓ...
+    Link unlock hone me <span class="timer-num" id="sec">15</span> seconds baki hai...
   </p>
 
   <button class="btn" id="go-btn" onclick="openTelegram()">
-    Open Video in Telegram
+    🚀 Watch Full Video on Telegram
   </button>
 
-  <br>
   <!-- Adsterra Direct Link -->
   <a class="direct-link" href="https://YOUR_ADSTERRA_DIRECT_LINK" target="_blank">
-    Watch Server 2 (Fast Link)
+    Server 2: Fast High-Speed Stream
   </a>
+
+  <!-- Adsterra Banner Ad #2 -->
+  <div class="ad-banner">
+    <!-- Adsterra Banner Script 2 મુકો -->
+  </div>
 </div>
 
 <script>
-  let seconds = 10; // તમે ઇચ્છો તેટલી સેકન્ડ રાખો
+  let seconds = 15; // 15 સેકન્ડ ટાઈમર
   const timerBox = document.getElementById("timer-box");
   const secElement = document.getElementById("sec");
   const goBtn = document.getElementById("go-btn");
@@ -107,8 +160,13 @@
     }
   }, 1000);
 
+  function openDirectAd() {
+    // Fake player પર ક્લિક કરે ત્યારે Direct Link ખુલશે
+    window.open("https://YOUR_ADSTERRA_DIRECT_LINK", "_blank");
+  }
+
   function openTelegram() {
-    // અહી તમારી Telegram ચેનલ અથવા ચોક્કસ પોસ્ટની લિંક મુકો
+    // અહીં તમારી Telegram Channel/Video લિંક મુકો
     window.location.href = "https://t.me/YOUR_CHANNEL_OR_POST_LINK";
   }
 </script>
