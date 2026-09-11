@@ -1,156 +1,132 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HD Video Player</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0b0f19;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 15px;
-    }
-    .card {
-      background: #151c2c;
-      border: 1px solid #28344e;
-      padding: 20px;
-      border-radius: 14px;
-      text-align: center;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-    }
-    .heading {
-      font-size: 19px;
-      font-weight: bold;
-      margin-bottom: 6px;
-      color: #38bdf8;
-    }
-    .subtext {
-      font-size: 13px;
-      color: #94a3b8;
-      margin-bottom: 15px;
-    }
-    .fake-player {
-      position: relative;
-      background: #000;
-      height: 190px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      overflow: hidden;
-      border: 1px dashed #334155;
-      margin-bottom: 15px;
-    }
-    .play-btn {
-      width: 55px;
-      height: 55px;
-      background: rgba(0, 136, 204, 0.9);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 0 15px rgba(0, 136, 204, 0.6);
-    }
-    .timer-badge {
-      background: rgba(244, 63, 94, 0.15);
-      border: 1px solid #f43f5e;
-      color: #f43f5e;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 15px;
-      margin: 15px 0;
-      font-weight: bold;
-    }
-    .btn {
-      display: none;
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      background: #0088cc;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .direct-link {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 13px;
-      color: #fbbf24;
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Video - Video Zone</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            background-color: #1e293b;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #f8fafc;
+        }
+        .timer-box {
+            margin: 25px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #38bdf8;
+        }
+        .seconds {
+            font-size: 26px;
+            color: #f43f5e;
+        }
+        .btn {
+            display: none;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 16px 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .btn:hover {
+            transform: scale(1.03);
+        }
+        .ad-space {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #334155;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #38bdf8;
+            cursor: pointer;
+            border: 1px dashed #64748b;
+            transition: background 0.2s;
+        }
+        .ad-space:hover {
+            background-color: #475569;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="heading">Aapka Video Ready Ho Raha Hai...</div>
-  <div class="subtext">Please wait for the secure download link</div>
+    <div class="card">
+        <h2>🎬 Your Video Is Ready</h2>
 
-  <!-- Fake Video Player (User Play દબાવશે એટલે Smartlink ખુલશે) -->
-  <div class="fake-player" onclick="openDirectAd()">
-    <div class="play-btn">▶</div>
-    <span style="font-size: 12px; margin-top: 8px; color: #cbd5e1;">Click here to Play / Unmute</span>
-  </div>
+        <!-- Adsterra Smartlink Ad Box -->
+        <div class="ad-space" onclick="openAdLink()">
+            <span>⚡ Click here to unlock high speed server (Sponsor Ad)</span>
+        </div>
 
-  <!-- Timer Text -->
-  <div class="timer-badge" id="timer-box">
-    ⏳ Link unlock hone me <span id="sec">15</span> seconds baki hai...
-  </div>
+        <div class="timer-box" id="timer-box">
+            Please wait <span class="seconds" id="count">15</span> seconds...
+        </div>
 
-  <!-- Unlock Button -->
-  <button class="btn" id="go-btn" onclick="openTelegram()">
-    🚀 Watch Full Video on Telegram
-  </button>
+        <a id="get-video-btn" class="btn" href="#">▶️ Click Here To Get Video</a>
+    </div>
 
-  <br>
-  <!-- Smartlink Button -->
-  <a class="direct-link" href="https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21" target="_blank">
-    Server 2: Fast High-Speed Stream
-  </a>
-</div>
+    <script>
+        const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
+        const BOT_USERNAME = "Nexxa18Bot";
 
-<script>
-  let seconds = 15;
-  const timerBox = document.getElementById("timer-box");
-  const secElement = document.getElementById("sec");
-  const goBtn = document.getElementById("go-btn");
+        // URL માંથી '?go=get_xxx' પેરામીટર રીડ કરવું
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoParam = urlParams.get('go');
 
-  const countdown = setInterval(() => {
-    seconds--;
-    if (secElement) secElement.innerText = seconds;
+        // બોટની યોગ્ય લિંક સેટ કરવી
+        const botRedirectUrl = videoParam 
+            ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
+            : `https://t.me/${BOT_USERNAME}`;
 
-    if (seconds <= 0) {
-      clearInterval(countdown);
-      timerBox.style.display = "none";
-      goBtn.style.display = "block";
-    }
-  }, 1000);
+        let timeLeft = 15;
+        const countSpan = document.getElementById("count");
+        const timerBox = document.getElementById("timer-box");
+        const videoBtn = document.getElementById("get-video-btn");
 
-  function openDirectAd() {
-    // Smartlink open થશે
-    window.open("https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21", "_blank");
-  }
+        videoBtn.href = botRedirectUrl;
 
-  function openTelegram() {
-    // તમારી Telegram લિંક અહીં મુકો
-    window.location.href = "https://t.me/YOUR_TELEGRAM_LINK_HERE";
-  }
-</script>
+        // Smartlink ઓપન કરવાનું ફંક્શન
+        function openAdLink() {
+            window.open(SMARTLINK, "_blank");
+        }
+
+        // ૧૫ સેકન્ડનું કાઉન્ટડાઉન
+        const countdown = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                countSpan.innerText = timeLeft;
+            } else {
+                clearInterval(countdown);
+                timerBox.style.display = "none";
+                videoBtn.style.display = "inline-block";
+            }
+        }, 1000);
+    </script>
 
 </body>
 </html>
