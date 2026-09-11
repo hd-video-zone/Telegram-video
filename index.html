@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
-    <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
-
-    <script src="https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js"></script>
-
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -24,16 +20,16 @@
             box-sizing: border-box;
         }
 
-        /* 300x250 બેનર કન્ટેનર */
         .ad-slot-top, .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
-            margin: 15px 0;
+            margin: 10px 0;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .card {
@@ -53,7 +49,6 @@
             color: #f8fafc;
         }
 
-        /* ૧. Play Video Clickbait Box */
         .play-clickbait-box {
             margin: 18px 0;
             padding: 16px;
@@ -93,7 +88,6 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* ૨. ટાઈમર બોક્સ */
         .timer-box {
             margin: 18px 0;
             padding: 12px;
@@ -112,7 +106,6 @@
             font-weight: bold;
         }
 
-        /* બોટ બટન */
         .btn {
             display: none;
             background: linear-gradient(135deg, #10b981, #059669);
@@ -140,7 +133,7 @@
 </head>
 <body>
 
-    <div class="ad-slot-top">
+    <div class="ad-slot-top" id="top-ad">
         <script>
           atOptions = {
             'key' : '3c5d38e6483721d34d6711714b85f53c',
@@ -150,7 +143,7 @@
             'params' : {}
           };
         </script>
-        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js"></script>
+        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js" async></script>
     </div>
 
     <div class="card">
@@ -162,13 +155,13 @@
         </div>
 
         <div class="timer-box" id="timer-trigger">
-            ⏳ Please wait <span class="seconds" id="count">15</span> seconds for Telegram link...
+            ⏳ Please wait <span class="seconds" id="count">20</span> seconds for Telegram link...
         </div>
 
         <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
-    <div class="ad-slot-bottom">
+    <div class="ad-slot-bottom" id="bottom-ad">
         <script>
           atOptions = {
             'key' : '3c5d38e6483721d34d6711714b85f53c',
@@ -178,7 +171,7 @@
             'params' : {}
           };
         </script>
-        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js"></script>
+        <script src="https://www.highrevenueformat.com/3c5d38e6483721d34d6711714b85f53c/invoke.js" async></script>
     </div>
 
     <script>
@@ -192,7 +185,7 @@
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
-        let timeLeft = 15;
+        let timeLeft = 20; // ૨૦ સેકન્ડ સેટ કરેલ છે
         let isSmartlinkTriggered = false;
 
         const countSpan = document.getElementById("count");
@@ -203,31 +196,22 @@
             window.open(SMARTLINK, "_blank");
         }
 
-        // ૧. લાલ બોક્સ પર ક્લિક
         document.getElementById("play-trigger").addEventListener("click", openSmartlink);
-
-        // ૨. ટાઈમર બોક્સ પર ક્લિક
         document.getElementById("timer-trigger").addEventListener("click", openSmartlink);
 
-        // ૩. ફાઇનલ બટન: ૧લી વાર સ્માર્ટલિંક, ૨જી વાર સીધું ટેલિગ્રામ બોટ
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
 
             if (!isSmartlinkTriggered) {
-                // પહેલી ક્લિક: ફક્ત ૧ વાર સ્માર્ટલિંક ખોલશે
                 openSmartlink();
                 isSmartlinkTriggered = true;
-
-                // બટન વાદળી થઈ જશે અને લખાણ બદલાઈ જશે
                 videoBtn.classList.add("btn-second-step");
                 videoBtn.innerHTML = "🚀 Click Here to Open Bot";
             } else {
-                // બીજી ક્લિક: સીધું બોટમાં લઈ જશે (કોઈ વધારાની Ad નહીં)
                 window.location.href = botRedirectUrl;
             }
         });
 
-        // ૧૫ સેકન્ડ કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
@@ -238,6 +222,19 @@
                 videoBtn.style.display = "inline-block";
             }
         }, 1000);
+
+        // Fast Load (Lazy loading scripts)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const popScript = document.createElement('script');
+                popScript.src = "https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js";
+                document.body.appendChild(popScript);
+
+                const socialScript = document.createElement('script');
+                socialScript.src = "https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js";
+                document.body.appendChild(socialScript);
+            }, 600);
+        });
     </script>
 
 </body>
