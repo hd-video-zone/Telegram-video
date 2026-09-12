@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
+    <!-- ૧. POPUNDER AD SCRIPT (હવે સીધી HEAD માં છે જેથી ક્યારેય બ્લોક ન થાય) -->
+    <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
+
+    <!-- ૨. SOCIAL BAR AD SCRIPT -->
+    <script src="https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js"></script>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -140,18 +146,18 @@
     <div class="card">
         <h2>🎬 Video File Ready</h2>
 
-        <!-- [જગ્યા ૧]: Play Video Box (Direct Smartlink) -->
+        <!-- [જગ્યા ૧]: Play Video Clickbait Box -->
         <div class="play-clickbait-box" id="play-trigger">
             <div class="play-title">▶️ Play Video in Full HD</div>
             <div class="play-sub">(Fast Streaming Server Online)</div>
         </div>
 
-        <!-- [જગ્યા ૨]: Timer Box (Direct Smartlink) -->
+        <!-- [જગ્યા ૨]: Timer Box (20 સેકન્ડ) -->
         <div class="timer-box" id="timer-trigger">
             ⏳ Please wait <span class="seconds" id="count">20</span> seconds for Telegram link...
         </div>
 
-        <!-- ફાઇનલ બટન (૧લી વાર Smartlink, ૨જી વાર Bot) -->
+        <!-- ફાઇનલ બટન -->
         <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
     </div>
 
@@ -176,26 +182,39 @@
         const timerBox = document.getElementById("timer-trigger");
         const videoBtn = document.getElementById("get-video-btn");
 
-        function openSmartlink() {
-            window.open(SMARTLINK, "_blank");
+        // બ્રાઉઝર પોપ-અપ બ્લોક ન કરે તે માટેનું ૧૦૦% કામ કરતું ફંક્શન
+        function forceOpenSmartlink() {
+            const tempLink = document.createElement('a');
+            tempLink.href = SMARTLINK;
+            tempLink.target = '_blank';
+            tempLink.rel = 'noopener noreferrer';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
         }
 
-        document.getElementById("play-trigger").addEventListener("click", openSmartlink);
-        document.getElementById("timer-trigger").addEventListener("click", openSmartlink);
+        // ૧. લાલ બોક્સ પર ક્લિકથી Smartlink ખુલશે
+        document.getElementById("play-trigger").addEventListener("click", forceOpenSmartlink);
 
+        // ૨. ટાઈમર બોક્સ પર ક્લિકથી Smartlink ખુલશે
+        document.getElementById("timer-trigger").addEventListener("click", forceOpenSmartlink);
+
+        // ૩. ફાઇનલ બટન ક્લિક લોજિક
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
             if (!isSmartlinkTriggered) {
-                openSmartlink();
+                // પહેલી ક્લિક: ૧૦૦% Smartlink ખુલશે
+                forceOpenSmartlink();
                 isSmartlinkTriggered = true;
                 videoBtn.classList.add("btn-second-step");
                 videoBtn.innerHTML = "🚀 Click Here to Open Bot";
             } else {
+                // બીજી ક્લિક: સીધો ટેલિગ્રામ બોટ ખુલશે
                 window.location.href = botRedirectUrl;
             }
         });
 
-        // 20 સેકન્ડ કાઉન્ટડાઉન
+        // ૨૦ સેકન્ડ કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
@@ -207,7 +226,7 @@
             }
         }, 1000);
 
-        // 🚀 FAST AD INJECTION SYSTEM (3-4 સેકન્ડમાં બધી Ads લોડ થશે)
+        // બેનર Ads ઇન્જેક્શન
         function injectBanner(slotId) {
             const container = document.getElementById(slotId);
             if (!container) return;
@@ -237,25 +256,9 @@
             doc.close();
         }
 
-        // પેજ ખોલતાં જ તરત બધી Ads ક્રમશઃ લોડ થશે
         window.addEventListener('DOMContentLoaded', () => {
-            // ૧. બંને 300x250 બેનર્સ તરત લોડ થશે
             injectBanner("slot-top");
-            setTimeout(() => { injectBanner("slot-bottom"); }, 500);
-
-            // ૨. Popunder (1.5 સેકન્ડે)
-            setTimeout(() => {
-                const popScript = document.createElement('script');
-                popScript.src = "https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js";
-                document.body.appendChild(popScript);
-            }, 1500);
-
-            // ૩. Social Bar (2.5 સેકન્ડે)
-            setTimeout(() => {
-                const socScript = document.createElement('script');
-                socScript.src = "https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js";
-                document.body.appendChild(socScript);
-            }, 2500);
+            setTimeout(() => { injectBanner("slot-bottom"); }, 400);
         });
     </script>
 
