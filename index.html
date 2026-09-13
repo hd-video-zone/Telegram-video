@@ -29,7 +29,21 @@
             box-sizing: border-box;
         }
 
-        .ad-slot-top, .ad-slot-bottom {
+        /* Top 320x50 Banner Container */
+        .ad-slot-top {
+            width: 320px;
+            min-height: 50px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Bottom 300x250 Banner Container */
+        .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
             margin: 12px 0;
@@ -197,6 +211,7 @@
 </head>
 <body>
 
+    <!-- ઉપરનું 320x50 બેનર સ્લોટ -->
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
@@ -205,6 +220,7 @@
             <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">15</span>s</div>
         </div>
 
+        <!-- Robot Verification Box -->
         <div class="captcha-box" id="captcha-trigger">
             <div class="captcha-left">
                 <div class="checkbox-fake" id="fakeCheck"></div>
@@ -216,16 +232,19 @@
             </div>
         </div>
 
+        <!-- કાયમી બટન (૧૫ સેકન્ડ બાદ ગ્રીન) -->
         <button id="get-video-btn" class="btn">
             <span id="btnIcon">⚡</span>
             <span id="btnText">Click Here to Get Video</span>
         </button>
     </div>
 
+    <!-- નીચેનું 300x250 બેનર સ્લોટ -->
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
-        const SMARTLINK = "https://www.profitableratecpmnetwork.com/fbwe8y4d?key=968ce280a889c90aee6bd179f64e4a21";
+        // નવી Smartlink
+        const SMARTLINK = "https://onepyrincehyarey.org?iFQO5=1161683";
         const BOT_USERNAME = "Nexxa18Bot";
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -256,11 +275,13 @@
             document.body.removeChild(tempLink);
         }
 
+        // ૧. Robot Verification પર ક્લિક
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
             forceOpenSmartlink();
         });
 
+        // ૨. Get Video બટન ક્લિક
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
 
@@ -279,6 +300,7 @@
             }
         });
 
+        // ૩. ૧૫ સેકન્ડનું કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
@@ -293,8 +315,39 @@
             }
         }, 1000);
 
-        function injectBanner(slotId) {
-            const container = document.getElementById(slotId);
+        // ૪. ઉપરનું 320x50 બેનર ઇન્જેક્શન
+        function injectTopBanner() {
+            const container = document.getElementById("slot-top");
+            if (!container) return;
+            const iframe = document.createElement('iframe');
+            iframe.width = "320";
+            iframe.height = "50";
+            iframe.frameBorder = "0";
+            iframe.scrolling = "no";
+            container.appendChild(iframe);
+
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(`
+                <body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '528c4991011313c6603d9e76df6c8170',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                <\/script>
+                <script type="text/javascript" src="https://www.highrevenueformat.com/528c4991011313c6603d9e76df6c8170/invoke.js"><\/script>
+                </body>
+            `);
+            doc.close();
+        }
+
+        // ૫. નીચેનું 300x250 બેનર ઇન્જેક્શન
+        function injectBottomBanner() {
+            const container = document.getElementById("slot-bottom");
             if (!container) return;
             const iframe = document.createElement('iframe');
             iframe.width = "300";
@@ -323,8 +376,8 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            injectBanner("slot-top");
-            setTimeout(() => { injectBanner("slot-bottom"); }, 400);
+            injectTopBanner();
+            setTimeout(injectBottomBanner, 400);
         });
     </script>
 
