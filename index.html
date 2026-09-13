@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
-    <!-- ૧. POPUNDER AD SCRIPT (હવે સીધી HEAD માં છે જેથી ક્યારેય બ્લોક ન થાય) -->
+    <!-- ૧. POPUNDER AD SCRIPT -->
     <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
 
     <!-- ૨. SOCIAL BAR AD SCRIPT -->
@@ -42,99 +42,158 @@
         .card {
             background-color: #161f30;
             border-radius: 18px;
-            padding: 25px 20px;
+            padding: 22px 18px;
             text-align: center;
             max-width: 420px;
             width: 100%;
             box-shadow: 0 12px 30px rgba(0,0,0,0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        h2 {
-            margin: 0 0 15px 0;
-            font-size: 22px;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 18px;
             color: #f8fafc;
-        }
-
-        .play-clickbait-box {
-            margin: 18px 0;
-            padding: 16px;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.35));
-            border: 2px solid #ef4444;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-            animation: pulse-glow 1.8s infinite;
-        }
-
-        .play-clickbait-box:hover {
-            transform: scale(1.02);
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.5));
-        }
-
-        .play-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #ffffff;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .play-sub {
+        /* નાનું કોમ્પેક્ટ ટાઈમર બેજ */
+        .timer-badge {
             font-size: 12px;
-            color: #fca5a5;
-            margin-top: 4px;
-        }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-
-        .timer-box {
-            margin: 18px 0;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            background: rgba(56, 189, 248, 0.12);
             color: #38bdf8;
-            background: rgba(56, 189, 248, 0.08);
-            border-radius: 8px;
-            border: 1px dashed rgba(56, 189, 248, 0.4);
-            cursor: pointer;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
         }
 
-        .seconds {
-            font-size: 24px;
+        .timer-badge span {
             color: #f43f5e;
             font-weight: bold;
         }
 
+        /* Robot Verification Box */
+        .captcha-box {
+            background: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .captcha-box:hover {
+            border-color: #b0b0b0;
+        }
+
+        .captcha-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkbox-fake {
+            width: 26px;
+            height: 26px;
+            border: 2px solid #c1c1c1;
+            border-radius: 4px;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-fake.checked {
+            border-color: #0f9d58;
+            background: #0f9d58;
+        }
+
+        .checkbox-fake.checked::after {
+            content: "✔";
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .captcha-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #202124;
+        }
+
+        .captcha-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.85;
+        }
+
+        .captcha-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .captcha-brand {
+            font-size: 9px;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        /* કાયમી Telegram બટન (શરૂઆતમાં વાદળી, ટાઈમર પૂરું થતાં ગ્રીન) */
         .btn {
-            display: none;
-            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: #ffffff;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
-            padding: 16px 24px;
+            padding: 15px 20px;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
             cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.2s ease;
+            transition: all 0.4s ease;
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .btn:hover {
             transform: scale(1.02);
         }
 
-        .btn-second-step {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5) !important;
+        /* ટાઈમર પૂરું થયા પછી ચમકતો નિયોન ગ્રીન કલર */
+        .btn-unlocked {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
         }
     </style>
 </head>
@@ -144,21 +203,28 @@
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
-        <h2>🎬 Video File Ready</h2>
-
-        <!-- [જગ્યા ૧]: Play Video Clickbait Box -->
-        <div class="play-clickbait-box" id="play-trigger">
-            <div class="play-title">▶️ Play Video in Full HD</div>
-            <div class="play-sub">(Fast Streaming Server Online)</div>
+        <div class="card-header">
+            <h2>🎬 Video File Ready</h2>
+            <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">5</span>s</div>
         </div>
 
-        <!-- [જગ્યા ૨]: Timer Box (20 સેકન્ડ) -->
-        <div class="timer-box" id="timer-trigger">
-            ⏳ Please wait <span class="seconds" id="count">20</span> seconds for Telegram link...
+        <!-- Robot Verification Box -->
+        <div class="captcha-box" id="captcha-trigger">
+            <div class="captcha-left">
+                <div class="checkbox-fake" id="fakeCheck"></div>
+                <span class="captcha-text">I'm not a robot / Verify Human</span>
+            </div>
+            <div class="captcha-right">
+                <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" class="captcha-logo" alt="reCAPTCHA">
+                <span class="captcha-brand">reCAPTCHA</span>
+            </div>
         </div>
 
-        <!-- ફાઇનલ બટન -->
-        <a id="get-video-btn" class="btn" href="javascript:void(0)">📥 Get Video On Telegram</a>
+        <!-- કાયમી હાજર રહેતું બટન (કલર બદલાશે) -->
+        <button id="get-video-btn" class="btn">
+            <span id="btnIcon">⚡</span>
+            <span id="btnText">Click Here to Get Video</span>
+        </button>
     </div>
 
     <!-- નીચેનું 300x250 બેનર -->
@@ -175,14 +241,18 @@
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
-        let timeLeft = 20;
+        let timeLeft = 5; // નાનું 5 સેકન્ડનું ટાઈમર
+        let isTimerDone = false;
         let isSmartlinkTriggered = false;
 
         const countSpan = document.getElementById("count");
-        const timerBox = document.getElementById("timer-trigger");
+        const timerBadge = document.getElementById("timerBadge");
         const videoBtn = document.getElementById("get-video-btn");
+        const btnIcon = document.getElementById("btnIcon");
+        const btnText = document.getElementById("btnText");
+        const fakeCheck = document.getElementById("fakeCheck");
 
-        // બ્રાઉઝર પોપ-અપ બ્લોક ન કરે તે માટેનું ૧૦૦% કામ કરતું ફંક્શન
+        // સ્માર્ટલિંક ખોલવા માટે
         function forceOpenSmartlink() {
             const tempLink = document.createElement('a');
             tempLink.href = SMARTLINK;
@@ -193,36 +263,48 @@
             document.body.removeChild(tempLink);
         }
 
-        // ૧. લાલ બોક્સ પર ક્લિકથી Smartlink ખુલશે
-        document.getElementById("play-trigger").addEventListener("click", forceOpenSmartlink);
+        // ૧. Robot Verification પર ક્લિક થાય ત્યારે
+        document.getElementById("captcha-trigger").addEventListener("click", function() {
+            fakeCheck.classList.add("checked");
+            forceOpenSmartlink();
+        });
 
-        // ૨. ટાઈમર બોક્સ પર ક્લિકથી Smartlink ખુલશે
-        document.getElementById("timer-trigger").addEventListener("click", forceOpenSmartlink);
-
-        // ૩. ફાઇનલ બટન ક્લિક લોજિક
+        // ૨. ગેટ વિડીયો બટન ક્લિક લોજિક
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
+
+            if (!isTimerDone) {
+                // જો ટાઈમર પૂરું ન થયું હોય તો એડ ખોલશે
+                forceOpenSmartlink();
+                return;
+            }
+
             if (!isSmartlinkTriggered) {
-                // પહેલી ક્લિક: ૧૦૦% Smartlink ખુલશે
+                // પહેલી ક્લિકે એડ ખૂલશે
                 forceOpenSmartlink();
                 isSmartlinkTriggered = true;
-                videoBtn.classList.add("btn-second-step");
-                videoBtn.innerHTML = "🚀 Click Here to Open Bot";
+                btnIcon.innerText = "🚀";
+                btnText.innerText = "Click to Open Telegram";
             } else {
-                // બીજી ક્લિક: સીધો ટેલિગ્રામ બોટ ખુલશે
+                // બીજી ક્લિકે સીધો બોટ ખૂલશે
                 window.location.href = botRedirectUrl;
             }
         });
 
-        // ૨૦ સેકન્ડ કાઉન્ટડાઉન
+        // ૩. નાનું 5 સેકન્ડનું ટાઈમર કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
                 countSpan.innerText = timeLeft;
             } else {
                 clearInterval(countdown);
-                timerBox.style.display = "none";
-                videoBtn.style.display = "inline-block";
+                isTimerDone = true;
+                timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
+                
+                // બટનનો કલર ગ્રીન કરવો અને લખાણ અપડેટ કરવું
+                videoBtn.classList.add("btn-unlocked");
+                btnIcon.innerText = "📥";
+                btnText.innerText = "Get Video On Telegram";
             }
         }, 1000);
 
