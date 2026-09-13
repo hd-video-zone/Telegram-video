@@ -27,9 +27,88 @@
             margin: 0;
             padding: 15px;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
-        /* Top 320x50 Banner Container */
+        /* --- FULL SCREEN OVERLAY CONTENT LOCKER --- */
+        #locker-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 15, 25, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .locker-card {
+            background-color: #161f30;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 26px 20px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lock-icon-circle {
+            width: 64px;
+            height: 64px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid #ef4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .locker-card h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #f8fafc;
+        }
+
+        .locker-card p {
+            margin: 0;
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .btn-unlock-trigger {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 14px 22px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
+            animation: pulse-gold 1.5s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 22px rgba(245, 158, 11, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+        }
+
+        /* --- MAIN PAGE CONTENT --- */
         .ad-slot-top {
             width: 320px;
             min-height: 50px;
@@ -42,7 +121,6 @@
             background: rgba(255, 255, 255, 0.04);
         }
 
-        /* Bottom 300x250 Banner Container */
         .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
@@ -172,34 +250,37 @@
             margin-top: 2px;
         }
 
-        .btn {
+        .btn-locked {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 16px;
+            background: #334155;
+            color: #94a3b8;
+            font-size: 15px;
             font-weight: bold;
             padding: 15px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: none;
+            cursor: not-allowed;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
+            transition: all 0.3s ease;
         }
 
         .btn-unlocked {
             background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: #ffffff !important;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
+            cursor: pointer !important;
             animation: pulse-glow 1.5s infinite;
+        }
+
+        .btn-redirecting {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+            color: #ffffff !important;
+            cursor: wait !important;
+            animation: pulse-glow 1s infinite;
         }
 
         @keyframes pulse-glow {
@@ -211,12 +292,24 @@
 </head>
 <body>
 
-    <!-- ઉપરનું 320x50 બેનર સ્લોટ -->
+    <!-- 1. FULL PAGE OVERLAY CONTENT LOCKER (FIRST SCREEN) -->
+    <div id="locker-overlay">
+        <div class="locker-card">
+            <div class="lock-icon-circle">🔒</div>
+            <h3>Content Locked</h3>
+            <p>Complete the quick ad verification below to unlock the video player.</p>
+            <button class="btn-unlock-trigger" id="unlock-now-btn">
+                ⚡ Click to Unlock Video
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. MAIN WEBSITE CONTENT (UNLOCKED AFTER STEP 1) -->
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
         <div class="card-header">
-            <h2>🎬 Video File Ready</h2>
+            <h2>🎬 Video Ready</h2>
             <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">15</span>s</div>
         </div>
 
@@ -232,18 +325,16 @@
             </div>
         </div>
 
-        <!-- કાયમી બટન (૧૫ સેકન્ડ બાદ ગ્રીન) -->
-        <button id="get-video-btn" class="btn">
-            <span id="btnIcon">⚡</span>
-            <span id="btnText">Click Here to Get Video</span>
+        <!-- Main Button with 3s Auto-Redirect -->
+        <button id="get-video-btn" class="btn-locked" disabled>
+            <span id="btnIcon">🔒</span>
+            <span id="btnText">Please Wait (15s)</span>
         </button>
     </div>
 
-    <!-- નીચેનું 300x250 બેનર સ્લોટ -->
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
-        // નવી Smartlink
         const SMARTLINK = "https://onepyrincehyarey.org?iFQO5=1161683";
         const BOT_USERNAME = "Nexxa18Bot";
 
@@ -256,8 +347,10 @@
 
         let timeLeft = 15;
         let isTimerDone = false;
-        let isSmartlinkTriggered = false;
+        let isRedirectTriggered = false;
 
+        const lockerOverlay = document.getElementById("locker-overlay");
+        const unlockNowBtn = document.getElementById("unlock-now-btn");
         const countSpan = document.getElementById("count");
         const timerBadge = document.getElementById("timerBadge");
         const videoBtn = document.getElementById("get-video-btn");
@@ -265,7 +358,7 @@
         const btnText = document.getElementById("btnText");
         const fakeCheck = document.getElementById("fakeCheck");
 
-        function forceOpenSmartlink() {
+        function openSmartlinkWindow() {
             const tempLink = document.createElement('a');
             tempLink.href = SMARTLINK;
             tempLink.target = '_blank';
@@ -275,47 +368,69 @@
             document.body.removeChild(tempLink);
         }
 
-        // ૧. Robot Verification પર ક્લિક
+        // STEP 1: Unlock full-page screen overlay & trigger ad
+        unlockNowBtn.addEventListener("click", function() {
+            openSmartlinkWindow();
+            lockerOverlay.style.display = "none";
+            startPageCountdown();
+        });
+
+        // Robot verification triggers smartlink in background
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
-            forceOpenSmartlink();
+            openSmartlinkWindow();
         });
 
-        // ૨. Get Video બટન ક્લિક
+        // STEP 2: 15-second timer starts after overlay is unlocked
+        function startPageCountdown() {
+            const countdown = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    countSpan.innerText = timeLeft;
+                    if (!isTimerDone) {
+                        btnText.innerText = `Please Wait (${timeLeft}s)`;
+                    }
+                } else {
+                    clearInterval(countdown);
+                    isTimerDone = true;
+                    timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
+                    videoBtn.disabled = false;
+                    videoBtn.className = "btn-unlocked";
+                    btnIcon.innerText = "📥";
+                    btnText.innerText = "Get Video On Telegram";
+                }
+            }, 1000);
+        }
+
+        // STEP 3: Click button -> open smartlink & 3-second auto-redirect to bot
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
+            if (!isTimerDone || isRedirectTriggered) return;
 
-            if (!isTimerDone) {
-                forceOpenSmartlink();
-                return;
-            }
+            isRedirectTriggered = true;
 
-            if (!isSmartlinkTriggered) {
-                forceOpenSmartlink();
-                isSmartlinkTriggered = true;
-                btnIcon.innerText = "🚀";
-                btnText.innerText = "Click to Open Telegram";
-            } else {
-                window.location.href = botRedirectUrl;
-            }
+            // Open Smartlink
+            openSmartlinkWindow();
+
+            // 3-second auto-redirect
+            let redirectSeconds = 3;
+            videoBtn.className = "btn-redirecting";
+            btnIcon.innerText = "⏳";
+            btnText.innerText = `Opening Telegram in ${redirectSeconds}s...`;
+
+            const redirectInterval = setInterval(() => {
+                redirectSeconds--;
+                if (redirectSeconds > 0) {
+                    btnText.innerText = `Opening Telegram in ${redirectSeconds}s...`;
+                } else {
+                    clearInterval(redirectInterval);
+                    btnText.innerText = "Redirecting...";
+                    window.location.href = botRedirectUrl;
+                }
+            }, 1000);
         });
 
-        // ૩. ૧૫ સેકન્ડનું કાઉન્ટડાઉન
-        const countdown = setInterval(() => {
-            timeLeft--;
-            if (timeLeft > 0) {
-                countSpan.innerText = timeLeft;
-            } else {
-                clearInterval(countdown);
-                isTimerDone = true;
-                timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
-                videoBtn.classList.add("btn-unlocked");
-                btnIcon.innerText = "📥";
-                btnText.innerText = "Get Video On Telegram";
-            }
-        }, 1000);
-
-        // ૪. ઉપરનું 320x50 બેનર ઇન્જેક્શન
+        // Top 320x50 Banner
         function injectTopBanner() {
             const container = document.getElementById("slot-top");
             if (!container) return;
@@ -345,7 +460,7 @@
             doc.close();
         }
 
-        // ૫. નીચેનું 300x250 બેનર ઇન્જેક્શન
+        // Bottom 300x250 Banner
         function injectBottomBanner() {
             const container = document.getElementById("slot-bottom");
             if (!container) return;
