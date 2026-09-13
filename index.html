@@ -24,88 +24,8 @@
             margin: 0;
             padding: 15px;
             box-sizing: border-box;
-            overflow-x: hidden;
         }
 
-        /* --- FULL SCREEN OVERLAY CONTENT LOCKER --- */
-        #locker-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(11, 15, 25, 0.98);
-            backdrop-filter: blur(12px);
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .locker-card {
-            background-color: #161f30;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 26px 20px;
-            max-width: 380px;
-            width: 100%;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .lock-icon-circle {
-            width: 64px;
-            height: 64px;
-            background: rgba(239, 68, 68, 0.15);
-            border: 2px solid #ef4444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-
-        .locker-card h3 {
-            margin: 0;
-            font-size: 20px;
-            color: #f8fafc;
-        }
-
-        .locker-card p {
-            margin: 0;
-            font-size: 13px;
-            color: #94a3b8;
-            line-height: 1.5;
-        }
-
-        .btn-unlock-trigger {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: bold;
-            padding: 14px 22px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
-            animation: pulse-gold 1.5s infinite;
-        }
-
-        @keyframes pulse-gold {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
-            50% { transform: scale(1.02); box-shadow: 0 0 22px rgba(245, 158, 11, 0.7); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
-        }
-
-        /* --- MAIN WEBSITE CONTENT --- */
         .ad-slot-top {
             width: 320px;
             min-height: 50px;
@@ -289,19 +209,7 @@
 </head>
 <body>
 
-    <!-- 1. FULL PAGE OVERLAY CONTENT LOCKER (FIRST SCREEN) -->
-    <div id="locker-overlay">
-        <div class="locker-card">
-            <div class="lock-icon-circle">🔒</div>
-            <h3>Content Locked</h3>
-            <p>Complete the quick ad task below to unlock the video player.</p>
-            <button class="btn-unlock-trigger" id="unlock-now-btn">
-                ⚡ Click to Complete Task & Unlock
-            </button>
-        </div>
-    </div>
-
-    <!-- 2. MAIN WEBSITE CONTENT (UNLOCKED AFTER TASK CLICK) -->
+    <!-- Top 320x50 Banner Slot -->
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
@@ -322,20 +230,17 @@
             </div>
         </div>
 
-        <!-- Action Button with 3s Auto-Redirect -->
+        <!-- Action Button -->
         <button id="get-video-btn" class="btn-locked" disabled>
             <span id="btnIcon">🔒</span>
             <span id="btnText">Please Wait (15s)</span>
         </button>
     </div>
 
+    <!-- Bottom 300x250 Banner Slot -->
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
-        // Ad-Maven Link Locker URL
-        const CONTENT_LOCKER_URL = "https://speedy-links.com/s?NfTlPEFD";
-        
-        // Smartlink for bottom action button
         const SMARTLINK = "https://onepyrincehyarey.org?iFQO5=1161683";
         const BOT_USERNAME = "Nexxa18Bot";
 
@@ -350,8 +255,6 @@
         let isTimerDone = false;
         let isRedirectTriggered = false;
 
-        const lockerOverlay = document.getElementById("locker-overlay");
-        const unlockNowBtn = document.getElementById("unlock-now-btn");
         const countSpan = document.getElementById("count");
         const timerBadge = document.getElementById("timerBadge");
         const videoBtn = document.getElementById("get-video-btn");
@@ -359,9 +262,9 @@
         const btnText = document.getElementById("btnText");
         const fakeCheck = document.getElementById("fakeCheck");
 
-        function openUrlInNewTab(url) {
+        function openSmartlinkWindow() {
             const tempLink = document.createElement('a');
-            tempLink.href = url;
+            tempLink.href = SMARTLINK;
             tempLink.target = '_blank';
             tempLink.rel = 'noopener noreferrer';
             document.body.appendChild(tempLink);
@@ -369,51 +272,42 @@
             document.body.removeChild(tempLink);
         }
 
-        // STEP 1: Click Unlock -> Opens Speedy-Links Task & Unhides page
-        unlockNowBtn.addEventListener("click", function() {
-            openUrlInNewTab(CONTENT_LOCKER_URL);
-            lockerOverlay.style.display = "none";
-            startPageCountdown();
-        });
-
         // Robot verification triggers smartlink in background
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
-            openUrlInNewTab(SMARTLINK);
+            openSmartlinkWindow();
         });
 
-        // STEP 2: 15-second countdown
-        function startPageCountdown() {
-            const countdown = setInterval(() => {
-                timeLeft--;
-                if (timeLeft > 0) {
-                    countSpan.innerText = timeLeft;
-                    if (!isTimerDone) {
-                        btnText.innerText = `Please Wait (${timeLeft}s)`;
-                    }
-                } else {
-                    clearInterval(countdown);
-                    isTimerDone = true;
-                    timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
-                    videoBtn.disabled = false;
-                    videoBtn.className = "btn-unlocked";
-                    btnIcon.innerText = "📥";
-                    btnText.innerText = "Get Video On Telegram";
+        // 15 seconds countdown
+        const countdown = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                countSpan.innerText = timeLeft;
+                if (!isTimerDone) {
+                    btnText.innerText = `Please Wait (${timeLeft}s)`;
                 }
-            }, 1000);
-        }
+            } else {
+                clearInterval(countdown);
+                isTimerDone = true;
+                timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
+                videoBtn.disabled = false;
+                videoBtn.className = "btn-unlocked";
+                btnIcon.innerText = "📥";
+                btnText.innerText = "Get Video On Telegram";
+            }
+        }, 1000);
 
-        // STEP 3: Click button -> open smartlink & 3-second auto-redirect to bot
+        // Click logic with 3-second auto-redirect
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
             if (!isTimerDone || isRedirectTriggered) return;
 
             isRedirectTriggered = true;
 
-            // Open Smartlink
-            openUrlInNewTab(SMARTLINK);
+            // 1. Open Smartlink / Ad in new tab
+            openSmartlinkWindow();
 
-            // 3-second auto-redirect
+            // 2. Start 3-second auto-redirect on current page
             let redirectSeconds = 3;
             videoBtn.className = "btn-redirecting";
             btnIcon.innerText = "⏳";
@@ -431,7 +325,7 @@
             }, 1000);
         });
 
-        // Top 320x50 Banner
+        // Top 320x50 Banner Injection
         function injectTopBanner() {
             const container = document.getElementById("slot-top");
             if (!container) return;
@@ -461,7 +355,7 @@
             doc.close();
         }
 
-        // Bottom 300x250 Banner
+        // Bottom 300x250 Banner Injection
         function injectBottomBanner() {
             const container = document.getElementById("slot-bottom");
             if (!container) return;
