@@ -167,43 +167,41 @@
             margin-top: 2px;
         }
 
-        .btn-locked {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: #334155;
-            color: #94a3b8;
-            font-size: 15px;
+        /* Original Button Style */
+        .btn-action {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
             font-weight: bold;
-            padding: 15px 20px;
-            border-radius: 12px;
-            cursor: not-allowed;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: none;
             width: 100%;
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
 
-        .btn-unlocked {
-            background: linear-gradient(135deg, #10b981, #059669) !important;
+        .btn-action:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-disabled {
+            background-color: #334155 !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed !important;
+        }
+
+        .btn-ready {
+            background-color: #10b981 !important;
             color: #ffffff !important;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
             cursor: pointer !important;
-            animation: pulse-glow 1.5s infinite;
         }
-
-        .btn-redirecting {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-            color: #ffffff !important;
-            cursor: wait !important;
-            animation: pulse-glow 1s infinite;
-        }
-
-        @keyframes pulse-glow {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
-            50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        
+        .btn-ready:hover {
+            background-color: #059669 !important;
         }
     </style>
 </head>
@@ -231,9 +229,8 @@
         </div>
 
         <!-- Action Button -->
-        <button id="get-video-btn" class="btn-locked" disabled>
-            <span id="btnIcon">🔒</span>
-            <span id="btnText">Please Wait (15s)</span>
+        <button id="get-video-btn" class="btn-action btn-disabled" disabled>
+            Please Wait (15s)
         </button>
     </div>
 
@@ -253,13 +250,11 @@
 
         let timeLeft = 15;
         let isTimerDone = false;
-        let isRedirectTriggered = false;
+        let hasAdOpened = false;
 
         const countSpan = document.getElementById("count");
         const timerBadge = document.getElementById("timerBadge");
         const videoBtn = document.getElementById("get-video-btn");
-        const btnIcon = document.getElementById("btnIcon");
-        const btnText = document.getElementById("btnText");
         const fakeCheck = document.getElementById("fakeCheck");
 
         function openSmartlinkWindow() {
@@ -284,48 +279,48 @@
             if (timeLeft > 0) {
                 countSpan.innerText = timeLeft;
                 if (!isTimerDone) {
-                    btnText.innerText = `Please Wait (${timeLeft}s)`;
+                    videoBtn.innerText = `Please Wait (${timeLeft}s)`;
                 }
             } else {
                 clearInterval(countdown);
                 isTimerDone = true;
                 timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
                 videoBtn.disabled = false;
-                videoBtn.className = "btn-unlocked";
-                btnIcon.innerText = "📥";
-                btnText.innerText = "Get Video On Telegram";
+                videoBtn.className = "btn-action btn-ready";
+                videoBtn.innerText = "Get Video On Telegram";
             }
         }, 1000);
 
-        // Click logic with 3-second auto-redirect
+        // Click Handler: Works even after coming back
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
-            if (!isTimerDone || isRedirectTriggered) return;
+            if (!isTimerDone) return;
 
-            isRedirectTriggered = true;
+            // જો પહેલી વાર ક્લિક કરે તો જાહેરાત ખૂલે
+            if (!hasAdOpened) {
+                hasAdOpened = true;
+                openSmartlinkWindow();
 
-            // 1. Open Smartlink / Ad in new tab
-            openSmartlinkWindow();
+                // 3 સેકન્ડમાં આપોઆપ રીડાયરેક્ટ
+                let redirectSeconds = 3;
+                videoBtn.innerText = `Opening Telegram in ${redirectSeconds}s...`;
 
-            // 2. Start 3-second auto-redirect on current page
-            let redirectSeconds = 3;
-            videoBtn.className = "btn-redirecting";
-            btnIcon.innerText = "⏳";
-            btnText.innerText = `Opening Telegram in ${redirectSeconds}s...`;
-
-            const redirectInterval = setInterval(() => {
-                redirectSeconds--;
-                if (redirectSeconds > 0) {
-                    btnText.innerText = `Opening Telegram in ${redirectSeconds}s...`;
-                } else {
-                    clearInterval(redirectInterval);
-                    btnText.innerText = "Redirecting...";
-                    window.location.href = botRedirectUrl;
-                }
-            }, 1000);
+                const redirectInterval = setInterval(() => {
+                    redirectSeconds--;
+                    if (redirectSeconds > 0) {
+                        videoBtn.innerText = `Opening Telegram in ${redirectSeconds}s...`;
+                    } else {
+                        clearInterval(redirectInterval);
+                        window.location.href = botRedirectUrl;
+                    }
+                }, 1000);
+            } else {
+                // જો યુઝર જાહેરાત જોઈને પાછો આવ્યો હોય અને ફરી ક્લિક કરે તો સીધો બોટમાં જશે
+                window.location.href = botRedirectUrl;
+            }
         });
 
-        // Top 320x50 Banner Injection
+        // Top 320x50 Banner
         function injectTopBanner() {
             const container = document.getElementById("slot-top");
             if (!container) return;
@@ -355,7 +350,7 @@
             doc.close();
         }
 
-        // Bottom 300x250 Banner Injection
+        // Bottom 300x250 Banner
         function injectBottomBanner() {
             const container = document.getElementById("slot-bottom");
             if (!container) return;
