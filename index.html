@@ -158,7 +158,7 @@
             margin-top: 2px;
         }
 
-        /* કાયમી Telegram બટન (શરૂઆતમાં વાદળી, ટાઈમર પૂરું થતાં ગ્રીન) */
+        /* કાયમી Telegram બટન (શરૂઆતમાં વાદળી, ૧૫ સેકન્ડ પછી ગ્રીન) */
         .btn {
             display: flex;
             align-items: center;
@@ -183,7 +183,7 @@
             transform: scale(1.02);
         }
 
-        /* ટાઈમર પૂરું થયા પછી ચમકતો નિયોન ગ્રીન કલર */
+        /* ૧૫ સેકન્ડ પછી ચમકતો નિયોન ગ્રીન કલર */
         .btn-unlocked {
             background: linear-gradient(135deg, #10b981, #059669) !important;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
@@ -205,7 +205,7 @@
     <div class="card">
         <div class="card-header">
             <h2>🎬 Video File Ready</h2>
-            <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">5</span>s</div>
+            <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">15</span>s</div>
         </div>
 
         <!-- Robot Verification Box -->
@@ -220,7 +220,7 @@
             </div>
         </div>
 
-        <!-- કાયમી હાજર રહેતું બટન (કલર બદલાશે) -->
+        <!-- કાયમી હાજર રહેતું બટન (૧૫ સેકન્ડ પછી ગ્રીન થશે) -->
         <button id="get-video-btn" class="btn">
             <span id="btnIcon">⚡</span>
             <span id="btnText">Click Here to Get Video</span>
@@ -241,7 +241,7 @@
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
-        let timeLeft = 5; // નાનું 5 સેકન્ડનું ટાઈમર
+        let timeLeft = 15; // ૧૫ સેકન્ડનું ટાઈમર
         let isTimerDone = false;
         let isSmartlinkTriggered = false;
 
@@ -274,7 +274,7 @@
             e.preventDefault();
 
             if (!isTimerDone) {
-                // જો ટાઈમર પૂરું ન થયું હોય તો એડ ખોલશે
+                // ૧૫ સેકન્ડ પૂરી ન થઈ હોય તો એડ ખૂલશે
                 forceOpenSmartlink();
                 return;
             }
@@ -291,7 +291,7 @@
             }
         });
 
-        // ૩. નાનું 5 સેકન્ડનું ટાઈમર કાઉન્ટડાઉન
+        // ૩. ૧૫ સેકન્ડનું કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
