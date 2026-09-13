@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
-    <!-- ૧. POPUNDER AD SCRIPT -->
+    <!-- AD-MAVEN FULL SCRIPT JS (CONTENT LOCKER) -->
+    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1720143"></script>
+
+    <!-- POPUNDER AD SCRIPT -->
     <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
 
-    <!-- ૨. SOCIAL BAR AD SCRIPT -->
+    <!-- SOCIAL BAR AD SCRIPT -->
     <script src="https://pl31296522.profitableratecpmnetwork.com/c5/87/34/c58734b649bf5088e07fa75b9978c9fa.js"></script>
 
     <style>
@@ -26,7 +29,6 @@
             box-sizing: border-box;
         }
 
-        /* 300x250 બેનર Ad કન્ટેનર */
         .ad-slot-top, .ad-slot-bottom {
             width: 300px;
             min-height: 250px;
@@ -69,7 +71,6 @@
             gap: 6px;
         }
 
-        /* નાનું કોમ્પેક્ટ ટાઈમર બેજ */
         .timer-badge {
             font-size: 12px;
             background: rgba(56, 189, 248, 0.12);
@@ -85,7 +86,6 @@
             font-weight: bold;
         }
 
-        /* Robot Verification Box */
         .captcha-box {
             background: #ffffff;
             border: 1px solid #d3d3d3;
@@ -158,7 +158,6 @@
             margin-top: 2px;
         }
 
-        /* કાયમી Telegram બટન (શરૂઆતમાં વાદળી, ૧૫ સેકન્ડ પછી ગ્રીન) */
         .btn {
             display: flex;
             align-items: center;
@@ -183,7 +182,6 @@
             transform: scale(1.02);
         }
 
-        /* ૧૫ સેકન્ડ પછી ચમકતો નિયોન ગ્રીન કલર */
         .btn-unlocked {
             background: linear-gradient(135deg, #10b981, #059669) !important;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
@@ -199,7 +197,6 @@
 </head>
 <body>
 
-    <!-- ઉપરનું 300x250 બેનર -->
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
@@ -208,7 +205,6 @@
             <div class="timer-badge" id="timerBadge">⚡ Checking: <span id="count">15</span>s</div>
         </div>
 
-        <!-- Robot Verification Box -->
         <div class="captcha-box" id="captcha-trigger">
             <div class="captcha-left">
                 <div class="checkbox-fake" id="fakeCheck"></div>
@@ -220,14 +216,12 @@
             </div>
         </div>
 
-        <!-- કાયમી હાજર રહેતું બટન (૧૫ સેકન્ડ પછી ગ્રીન થશે) -->
         <button id="get-video-btn" class="btn">
             <span id="btnIcon">⚡</span>
             <span id="btnText">Click Here to Get Video</span>
         </button>
     </div>
 
-    <!-- નીચેનું 300x250 બેનર -->
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
@@ -241,7 +235,7 @@
             ? `https://t.me/${BOT_USERNAME}?start=${videoParam}`
             : `https://t.me/${BOT_USERNAME}`;
 
-        let timeLeft = 15; // ૧૫ સેકન્ડનું ટાઈમર
+        let timeLeft = 15;
         let isTimerDone = false;
         let isSmartlinkTriggered = false;
 
@@ -252,7 +246,6 @@
         const btnText = document.getElementById("btnText");
         const fakeCheck = document.getElementById("fakeCheck");
 
-        // સ્માર્ટલિંક ખોલવા માટે
         function forceOpenSmartlink() {
             const tempLink = document.createElement('a');
             tempLink.href = SMARTLINK;
@@ -263,35 +256,29 @@
             document.body.removeChild(tempLink);
         }
 
-        // ૧. Robot Verification પર ક્લિક થાય ત્યારે
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
             forceOpenSmartlink();
         });
 
-        // ૨. ગેટ વિડીયો બટન ક્લિક લોજિક
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
 
             if (!isTimerDone) {
-                // ૧૫ સેકન્ડ પૂરી ન થઈ હોય તો એડ ખૂલશે
                 forceOpenSmartlink();
                 return;
             }
 
             if (!isSmartlinkTriggered) {
-                // પહેલી ક્લિકે એડ ખૂલશે
                 forceOpenSmartlink();
                 isSmartlinkTriggered = true;
                 btnIcon.innerText = "🚀";
                 btnText.innerText = "Click to Open Telegram";
             } else {
-                // બીજી ક્લિકે સીધો બોટ ખૂલશે
                 window.location.href = botRedirectUrl;
             }
         });
 
-        // ૩. ૧૫ સેકન્ડનું કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
@@ -300,15 +287,12 @@
                 clearInterval(countdown);
                 isTimerDone = true;
                 timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
-                
-                // બટનનો કલર ગ્રીન કરવો અને લખાણ અપડેટ કરવું
                 videoBtn.classList.add("btn-unlocked");
                 btnIcon.innerText = "📥";
                 btnText.innerText = "Get Video On Telegram";
             }
         }, 1000);
 
-        // બેનર Ads ઇન્જેક્શન
         function injectBanner(slotId) {
             const container = document.getElementById(slotId);
             if (!container) return;
