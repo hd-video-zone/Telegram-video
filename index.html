@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
-    <!-- AD-MAVEN FULL SCRIPT JS (CONTENT LOCKER) -->
-    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1720143"></script>
-
     <!-- POPUNDER AD SCRIPT -->
     <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
 
@@ -108,7 +105,7 @@
             100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
         }
 
-        /* --- MAIN PAGE CONTENT --- */
+        /* --- MAIN WEBSITE CONTENT --- */
         .ad-slot-top {
             width: 320px;
             min-height: 50px;
@@ -297,14 +294,14 @@
         <div class="locker-card">
             <div class="lock-icon-circle">🔒</div>
             <h3>Content Locked</h3>
-            <p>Complete the quick ad verification below to unlock the video player.</p>
+            <p>Complete the quick ad task below to unlock the video player.</p>
             <button class="btn-unlock-trigger" id="unlock-now-btn">
-                ⚡ Click to Unlock Video
+                ⚡ Click to Complete Task & Unlock
             </button>
         </div>
     </div>
 
-    <!-- 2. MAIN WEBSITE CONTENT (UNLOCKED AFTER STEP 1) -->
+    <!-- 2. MAIN WEBSITE CONTENT (UNLOCKED AFTER TASK CLICK) -->
     <div class="ad-slot-top" id="slot-top"></div>
 
     <div class="card">
@@ -325,7 +322,7 @@
             </div>
         </div>
 
-        <!-- Main Button with 3s Auto-Redirect -->
+        <!-- Action Button with 3s Auto-Redirect -->
         <button id="get-video-btn" class="btn-locked" disabled>
             <span id="btnIcon">🔒</span>
             <span id="btnText">Please Wait (15s)</span>
@@ -335,6 +332,10 @@
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
+        // Ad-Maven Link Locker URL
+        const CONTENT_LOCKER_URL = "https://speedy-links.com/s?NfTlPEFD";
+        
+        // Smartlink for bottom action button
         const SMARTLINK = "https://onepyrincehyarey.org?iFQO5=1161683";
         const BOT_USERNAME = "Nexxa18Bot";
 
@@ -358,9 +359,9 @@
         const btnText = document.getElementById("btnText");
         const fakeCheck = document.getElementById("fakeCheck");
 
-        function openSmartlinkWindow() {
+        function openUrlInNewTab(url) {
             const tempLink = document.createElement('a');
-            tempLink.href = SMARTLINK;
+            tempLink.href = url;
             tempLink.target = '_blank';
             tempLink.rel = 'noopener noreferrer';
             document.body.appendChild(tempLink);
@@ -368,9 +369,9 @@
             document.body.removeChild(tempLink);
         }
 
-        // STEP 1: Unlock full-page screen overlay & trigger ad
+        // STEP 1: Click Unlock -> Opens Speedy-Links Task & Unhides page
         unlockNowBtn.addEventListener("click", function() {
-            openSmartlinkWindow();
+            openUrlInNewTab(CONTENT_LOCKER_URL);
             lockerOverlay.style.display = "none";
             startPageCountdown();
         });
@@ -378,10 +379,10 @@
         // Robot verification triggers smartlink in background
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
-            openSmartlinkWindow();
+            openUrlInNewTab(SMARTLINK);
         });
 
-        // STEP 2: 15-second timer starts after overlay is unlocked
+        // STEP 2: 15-second countdown
         function startPageCountdown() {
             const countdown = setInterval(() => {
                 timeLeft--;
@@ -410,7 +411,7 @@
             isRedirectTriggered = true;
 
             // Open Smartlink
-            openSmartlinkWindow();
+            openUrlInNewTab(SMARTLINK);
 
             // 3-second auto-redirect
             let redirectSeconds = 3;
