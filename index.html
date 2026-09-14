@@ -171,40 +171,33 @@
             margin-top: 2px;
         }
 
+        /* એકદમ આકર્ષક બટન જે સીધું ક્લિક કરવા જેવું લાગે */
         .btn-action {
-            display: inline-block;
-            background-color: #2563eb;
+            display: block;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
             color: #ffffff;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 14px 20px;
-            border-radius: 10px;
-            border: none;
+            font-size: 17px;
+            font-weight: 700;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
             box-sizing: border-box;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            transition: all 0.2s ease;
+            animation: pulse-btn 2s infinite;
         }
 
-        .btn-action:hover {
-            background-color: #1d4ed8;
+        .btn-action:active {
+            transform: scale(0.98);
         }
 
-        .btn-disabled {
-            background-color: #334155 !important;
-            color: #94a3b8 !important;
-            cursor: not-allowed !important;
-        }
-
-        .btn-ready {
-            background-color: #10b981 !important;
-            color: #ffffff !important;
-            cursor: pointer !important;
-        }
-        
-        .btn-ready:hover {
-            background-color: #059669 !important;
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(2, 132, 199, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
         }
     </style>
 </head>
@@ -231,9 +224,9 @@
             </div>
         </div>
 
-        <!-- Action Button -->
-        <button id="get-video-btn" class="btn-action btn-disabled" disabled>
-            Please Wait (15s)
+        <!-- Action Button (હવે સાવ આકર્ષક અને ક્લિકેબલ દેખાશે) -->
+        <button id="get-video-btn" class="btn-action">
+            ▶️ Get Telegram Video
         </button>
     </div>
 
@@ -252,7 +245,6 @@
             : `https://t.me/${BOT_USERNAME}`;
 
         let timeLeft = 15;
-        let isTimerDone = false;
         let hasAdOpened = false;
 
         const countSpan = document.getElementById("count");
@@ -270,53 +262,54 @@
             document.body.removeChild(tempLink);
         }
 
-        // Robot verification triggers smartlink in background
+        // reCAPTCHA પર ક્લિક કરવાથી એડ ખૂલશે
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
             openSmartlinkWindow();
         });
 
-        // 15 seconds countdown
+        // 15 સેકન્ડનું કાઉન્ટડાઉન (માત્ર ઉપર બેજમાં ચાલશે)
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
                 countSpan.innerText = timeLeft;
-                if (!isTimerDone) {
-                    videoBtn.innerText = `Please Wait (${timeLeft}s)`;
-                }
             } else {
                 clearInterval(countdown);
-                isTimerDone = true;
-                timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Ready</span>";
-                videoBtn.disabled = false;
-                videoBtn.className = "btn-action btn-ready";
-                videoBtn.innerText = "Get Video On Telegram";
+                timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Verified</span>";
             }
         }, 1000);
 
-        // Click Handler
+        // બટન ક્લિક હેન્ડલર
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
-            if (!isTimerDone) return;
 
             if (!hasAdOpened) {
+                // પહેલી ક્લિક: એડ ઓપન થશે અને ૩ સેકન્ડમાં આપોઆપ ટેલિગ્રામમાં લઈ જશે
                 hasAdOpened = true;
                 openSmartlinkWindow();
 
-                let redirectSeconds = 3;
-                videoBtn.innerText = `Opening Telegram in ${redirectSeconds}s...`;
+                let redirectSec = 3;
+                videoBtn.innerText = `Opening Video in ${redirectSec}s...`;
 
-                const redirectInterval = setInterval(() => {
-                    redirectSeconds--;
-                    if (redirectSeconds > 0) {
-                        videoBtn.innerText = `Opening Telegram in ${redirectSeconds}s...`;
+                const timer = setInterval(() => {
+                    redirectSec--;
+                    if (redirectSec > 0) {
+                        videoBtn.innerText = `Opening Video in ${redirectSec}s...`;
                     } else {
-                        clearInterval(redirectInterval);
+                        clearInterval(timer);
                         window.location.href = botRedirectUrl;
                     }
                 }, 1000);
             } else {
+                // જાહેરાત જોઈને પાછો આવ્યો હોય તો સીધો જ બોટમાં રિડાયરેક્ટ થશે
                 window.location.href = botRedirectUrl;
+            }
+        });
+
+        // જો યુઝર બેક આવીને ફરી પેજ પર આવે ત્યારે બટન રિસેટ રહે
+        window.addEventListener('pageshow', function() {
+            if (hasAdOpened) {
+                videoBtn.innerText = "▶️ Continue to Telegram Video";
             }
         });
 
