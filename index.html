@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
+    <!-- HILLTOPADS VERIFICATION & TRACKING -->
+    <meta name="a07700a10b269dfd0030de7e066d2f50904d5a96" content="a07700a10b269dfd0030de7e066d2f50904d5a96" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
     <!-- POPUNDER AD SCRIPT -->
     <script src="https://pl31296521.profitableratecpmnetwork.com/91/ec/05/91ec0584ed1776af17133dac80599f31.js"></script>
 
@@ -167,7 +171,6 @@
             margin-top: 2px;
         }
 
-        /* Original Button Style */
         .btn-action {
             display: inline-block;
             background-color: #2563eb;
@@ -291,17 +294,15 @@
             }
         }, 1000);
 
-        // Click Handler: Works even after coming back
+        // Click Handler
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
             if (!isTimerDone) return;
 
-            // જો પહેલી વાર ક્લિક કરે તો જાહેરાત ખૂલે
             if (!hasAdOpened) {
                 hasAdOpened = true;
                 openSmartlinkWindow();
 
-                // 3 સેકન્ડમાં આપોઆપ રીડાયરેક્ટ
                 let redirectSeconds = 3;
                 videoBtn.innerText = `Opening Telegram in ${redirectSeconds}s...`;
 
@@ -315,7 +316,6 @@
                     }
                 }, 1000);
             } else {
-                // જો યુઝર જાહેરાત જોઈને પાછો આવ્યો હોય અને ફરી ક્લિક કરે તો સીધો બોટમાં જશે
                 window.location.href = botRedirectUrl;
             }
         });
