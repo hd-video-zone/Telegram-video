@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Video - HD Zone</title>
 
+    <!-- MONETAG VERIFICATION TAG -->
+    <meta name="monetag" content="9bf63e4c266e934de0c3aa79c55b8be9">
+
     <!-- HILLTOPADS VERIFICATION & TRACKING -->
     <meta name="a07700a10b269dfd0030de7e066d2f50904d5a96" content="a07700a10b269dfd0030de7e066d2f50904d5a96" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
@@ -240,7 +243,7 @@
     <div class="ad-slot-bottom" id="slot-bottom"></div>
 
     <script>
-        const SMARTLINK = "https://onepyrincehyarey.org?iFQO5=1161683";
+        const SMARTLINK = "https://acidic-deal.com/Ehj0lp";
         const BOT_USERNAME = "Nexxa18Bot";
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -269,35 +272,30 @@
             document.body.removeChild(tempLink);
         }
 
-        // Captcha Click: ફક્ત સ્માર્ટલિંક ખોલશે
         document.getElementById("captcha-trigger").addEventListener("click", function() {
             fakeCheck.classList.add("checked");
             openSmartlinkWindow();
         });
 
-        // 15 સેકન્ડ કાઉન્ટડાઉન
         const countdown = setInterval(() => {
             timeLeft--;
             if (timeLeft > 0) {
                 countSpan.innerText = timeLeft;
             } else {
                 clearInterval(countdown);
-                isTimerComplete = true; // ૧૫ સેકન્ડ પૂરી થઈ
+                isTimerComplete = true;
                 timerBadge.innerHTML = "✅ <span style='color:#10b981;'>Verified</span>";
             }
         }, 1000);
 
-        // બટન ક્લિક લોજિક
         videoBtn.addEventListener("click", function(e) {
             e.preventDefault();
 
-            // ૧૫ સેકન્ડ પૂરી ન થઈ હોય ત્યાં સુધી માત્ર એડ ખોલશે, રીડાયરેક્ટ નહીં કરે
             if (!isTimerComplete) {
                 openSmartlinkWindow();
                 return;
             }
 
-            // ૧૫ સેકન્ડ પૂરી થયા પછી જ રીડાયરેક્ટ પ્રોસેસ થશે
             if (!hasAdOpened) {
                 hasAdOpened = true;
                 openSmartlinkWindow();
@@ -315,7 +313,6 @@
                     }
                 }, 1000);
             } else {
-                // બેક આવ્યા પછી સીધો ટેલિગ્રામમાં લઈ જશે
                 window.location.href = botRedirectUrl;
             }
         });
